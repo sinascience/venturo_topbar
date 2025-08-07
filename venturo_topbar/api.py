@@ -99,10 +99,12 @@ def get_navigation_data():
 
         # Get system settings for branding
         system_settings = frappe.get_cached_doc("System Settings")
+        workspace_setting = frappe.db.get("Workspace Settings")
 
         return {
             "modules": allowed_modules,
             "workspaces": workspaces,
+            "workspace_setting": workspace_setting,
             "user": user_data,
             "system_settings": {
                 "app_name": "Hayyu",
