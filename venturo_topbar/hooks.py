@@ -5,6 +5,30 @@ app_description = "To Set up navbar"
 app_email = "anis@venturo.pro"
 app_license = "mit"
 
+# Include CSS and JS files
+app_include_css = [
+    "/assets/venturo_topbar/css/topbar.css"
+]
+
+app_include_js = [
+    "/assets/venturo_topbar/js/topbar.js"
+]
+
+# Hook into desk page
+page_js = {
+    "desk": "public/js/topbar.js"
+}
+
+# Custom web template
+web_include_css = [
+    "/assets/venturo_topbar/css/topbar.css"
+]
+
+# Override standard templates
+standard_portal_menu_items = [
+    # Define your custom menu items here
+]
+
 # Apps
 # ------------------
 
