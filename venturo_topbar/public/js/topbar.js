@@ -209,7 +209,7 @@ function generateNavItems() {
 	// Always build workspace tree structure
 	navHTML = generateWorkspaceTree(
 		workspaces.filter((value) => {
-			return jsonParsed[value.name] !== undefined;
+			return jsonParsed[value.name] !== undefined && jsonParsed[value.name] === 1;
 		})
 	);
 
