@@ -203,15 +203,11 @@ function generateNavItems() {
 	// Only use workspaces - ignore modules completely
 	if (workspaces.length === 0) {
 		console.warn("No workspaces available");
+		return "";
 	}
 
-	const jsonParsed = JSON.parse(navigationData.workspace_setting.workspace_visibility_json);
-	// Always build workspace tree structure
-	navHTML = generateWorkspaceTree(
-		workspaces.filter((value) => {
-			return jsonParsed[value.name] !== undefined && jsonParsed[value.name] === 1;
-		})
-	);
+	// Workspaces are already filtered in Python API, so use them directly
+	navHTML = generateWorkspaceTree(workspaces);
 
 	return navHTML;
 }

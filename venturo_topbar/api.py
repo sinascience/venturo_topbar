@@ -70,9 +70,17 @@ def get_navigation_data():
             "language": user_info.language or "en"
         }
 
-        # Get workspace data (ERPNext v13+)
+        # Get workspace data (ERPNext v13+) and apply filtering
         workspaces = []
+        visible_workspaces = []
+        workspace_setting = None
+
         try:
+            # Get workspace settings for filtering
+            workspace_setting = frappe.db.get(
+                "Workspace Settings"
+            )
+
             workspace_list = frappe.get_all(
                 "Workspace",
                 fields=["name", "title", "icon", "indicator_color", "parent_page", "public", "app"],
@@ -93,18 +101,36 @@ def get_navigation_data():
                         "parent_page": workspace.parent_page,
                         "route": f"/app/{workspace.name.lower().replace(' ', '-')}"
                     })
-        except:
+
+            # Apply workspace visibility filtering if settings exist
+            if workspace_setting:
+                try:
+                    import json
+                    visibility_settings = json.loads(workspace_setting["workspace_visibility_json"])
+
+                    # Filter workspaces based on visibility settings
+                    visible_workspaces = [
+                        ws for ws in workspaces
+                        if ws["name"] in visibility_settings and visibility_settings[ws["name"]] == 1
+                    ]
+                except (json.JSONDecodeError, KeyError, TypeError):
+                    # If JSON parsing fails, show all workspaces
+                    visible_workspaces = workspaces
+            else:
+                # If no settings, show all workspaces
+                visible_workspaces = workspaces
+
+        except Exception as e:
             # Workspaces might not exist in older versions
+            frappe.log_error(f"Workspace loading error: {str(e)}")
             pass
 
         # Get system settings for branding
         system_settings = frappe.get_cached_doc("System Settings")
-        workspace_setting = frappe.db.get("Workspace Settings")
 
         return {
             "modules": allowed_modules,
-            "workspaces": workspaces,
-            "workspace_setting": workspace_setting,
+            "workspaces": visible_workspaces,  # Use filtered workspaces
             "user": user_data,
             "system_settings": {
                 "app_name": "Hayyu",
