@@ -26,7 +26,7 @@ web_template = {
 
 # Custom web template
 web_include_css = [
-    "/assets/venturo_topbar/css/topbar.css"
+    "/assets/venturo_topbar/css/topbar.css?id=3"
 ]
 
 # Override standard templates
