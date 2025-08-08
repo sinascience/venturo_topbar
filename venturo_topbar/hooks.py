@@ -11,12 +11,19 @@ app_include_css = [
 ]
 
 app_include_js = [
+    "/assets/venturo_topbar/js/search_utils.js",
+    "/assets/venturo_topbar/js/search.js",
     "/assets/venturo_topbar/js/topbar.js"
 ]
 
 # Hook into desk page
 page_js = {
     "desk": "public/js/topbar.js"
+}
+
+# Register templates
+web_template = {
+    "search": "templates/includes/search.html"
 }
 
 # Custom web template

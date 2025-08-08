@@ -15,6 +15,20 @@
     display: none;
 }
 
+/* Hide the default Frappe search bar */
+.search-bar,
+.search-input,
+.search-field,
+.navbar .search-bar,
+.navbar .search-input,
+#navbar-search,
+.awesomplete,
+.search-bar,
+input[placeholder*="Search"],
+input[placeholder*="search"] {
+    display: none !important;
+}
+
 /* Custom Topbar Styles - Frappe-like */
 .custom-topbar {
     position: fixed;

@@ -276,7 +276,6 @@ function generateWorkspaceTree(workspaces) {
         `;
 	}
 
-	console.log("Generated workspace tree HTML:", navHTML);
 	return navHTML;
 }
 
@@ -517,6 +516,30 @@ function initializeTopbarEvents() {
 	// Search functionality
 	$(".topbar-search-input").on("input", debounce(handleSearch, 300));
 
+	// Keyboard shortcut for search (Ctrl+K or Cmd+K)
+	$(document).on("keydown", function (e) {
+		if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+			e.preventDefault();
+			if (typeof venturo_topbar !== 'undefined' && venturo_topbar.searchdialog && venturo_topbar.searchdialog.search) {
+				venturo_topbar.searchdialog.search.init_search("", "global_search");
+			} else {
+				// Focus on search input as fallback
+				$(".topbar-search-input").focus();
+			}
+		}
+	});
+
+	// Focus search when clicking on search input
+	$(".topbar-search-input").on("focus", function() {
+		if (typeof venturo_topbar !== 'undefined' && venturo_topbar.searchdialog && venturo_topbar.searchdialog.search) {
+			const currentValue = $(this).val();
+			if (currentValue.length >= 2) {
+				venturo_topbar.searchdialog.search.init_search(currentValue, "global_search");
+				$(this).val('');
+			}
+		}
+	});
+
 	// Dropdown functionality
 	$(".topbar-nav-item").on("mouseenter", function () {
 		const $dropdown = $(this).find(".topbar-dropdown");
@@ -553,6 +576,16 @@ function handleSearch(e) {
 		return;
 	}
 
+	// Use the enhanced search functionality
+	if (typeof venturo_topbar !== 'undefined' && venturo_topbar.searchdialog && venturo_topbar.searchdialog.search) {
+		// Open the advanced search dialog
+		venturo_topbar.searchdialog.search.init_search(query, "global_search");
+		// Clear the input after opening the dialog
+		$(e.target).val('');
+		return;
+	}
+
+	// Fallback to simple search if advanced search is not available
 	frappe.call({
 		method: "venturo_topbar.api.get_quick_search_data",
 		args: { query: query },
