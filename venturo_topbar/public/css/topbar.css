@@ -16,13 +16,12 @@
 }
 
 /* Hide the default Frappe search bar */
-.search-bar,
-.search-input,
-.search-field,
-.navbar .search-bar,
-.navbar .search-input,
-#navbar-search,
-.awesomplete,
+.sticky-top .search-bar,
+.sticky-top .search-input,
+.sticky-top .search-field,
+.sticky-top .navbar .search-bar,
+.sticky-top .navbar .search-input,
+.sticky-top #navbar-search,
 .search-bar {
     display: none !important;
 }

@@ -7,7 +7,7 @@ app_license = "mit"
 
 # Include CSS and JS files
 app_include_css = [
-    "/assets/venturo_topbar/css/topbar.css?id=3"
+    "/assets/venturo_topbar/css/topbar.css?id=4"
 ]
 
 app_include_js = [
