@@ -7,13 +7,11 @@ app_license = "mit"
 
 # Include CSS and JS files
 app_include_css = [
-    "/assets/venturo_topbar/css/topbar.css"
+    "/assets/venturo_topbar/css/topbar.css?id=2"
 ]
 
 app_include_js = [
-    "/assets/venturo_topbar/js/search_utils.js",
-    "/assets/venturo_topbar/js/search.js",
-    "/assets/venturo_topbar/js/topbar.js"
+    "/assets/venturo_topbar/js/topbar.js?id=42"
 ]
 
 # Hook into desk page

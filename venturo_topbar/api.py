@@ -102,7 +102,7 @@ def get_navigation_data():
                         "route": f"/app/{workspace.name.lower().replace(' ', '-')}"
                     })
 
-            # Apply workspace visibility filtering if settings exist
+            # Apply workspace visibility filtering if settings exist 
             if workspace_setting:
                 try:
                     import json
